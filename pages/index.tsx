@@ -5,6 +5,7 @@ import { getSession, signOut } from 'next-auth/react'
 import Billboard from '@/components/Billboard'
 import MovieList from '@/components/MovieList'
 import useMovieList from '@/hooks/useMovies'
+import useFavourites from '@/hooks/useFavourites'
 
 
 export async function getServerSideProps(context: NextPageContext){
@@ -24,13 +25,14 @@ export async function getServerSideProps(context: NextPageContext){
 }
 export default function Home() {
   const {data: movies = []} = useMovieList()
-
+  const {data: favourites= []} = useFavourites()
   return (
     <>
       <Navbar />
       <Billboard />
       <div className="pb-40">
         <MovieList  title="Trending Now" data={movies}/>
+        <MovieList title="Favourites" data={favourites} />
       </div>
     </>
   )
